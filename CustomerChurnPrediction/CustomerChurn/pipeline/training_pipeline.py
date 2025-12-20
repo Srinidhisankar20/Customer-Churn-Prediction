@@ -3,8 +3,9 @@ import os,sys
 from CustomerChurn.logging.logger import logging
 from CustomerChurn.exception.exception import CustomerChurnException
 from CustomerChurn.components.data_ingestion import DataIngestion
-from CustomerChurn.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig
-from CustomerChurn.entity.artifact_entity import DataIngestionArtifact
+from CustomerChurn.components.data_validation import DataValidation
+from CustomerChurn.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig
+from CustomerChurn.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact
 #from CustomerChurn.cloud.s3_syncer import S3Sync
 
 class TrainingPipeline:
@@ -23,10 +24,23 @@ class TrainingPipeline:
             return data_ingestion_artifact
         except Exception as e:
             raise CustomerChurnException(e, sys)
+        
+    #Start Data Validation
+    def start_data_validation(self,data_ingestion_artifact: DataIngestionArtifact):
+        try:
+            data_validation_config = DataValidationConfig(training_pipeline_config=self.training_pipeline_config)
+            logging.info("Data Validation Initiated.")
+            data_validation = DataValidation(data_ingestion_artifact=data_ingestion_artifact,data_validation_config=data_validation_config)
+            data_validation_artifact = data_validation.initiate_data_validation()
+            logging.info("Data Validation Completed.")
+            return data_validation_artifact
+        except Exception as e:
+            raise CustomerChurnException(e,sys)
     
 
     def run_pipeline(self):
         try:
             data_ingestion_artifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
         except Exception as e:
             raise CustomerChurnException(e, sys)

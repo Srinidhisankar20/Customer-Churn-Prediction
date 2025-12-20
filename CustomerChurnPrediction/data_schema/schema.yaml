@@ -1,0 +1,96 @@
+columns:
+  CustomerID: object
+  Count: int64
+  Country: object
+  State: object
+  City: object
+  Zip Code: int64
+  Lat Long: object
+  Latitude: float64
+  Longitude: float64
+  Gender: object
+  Senior Citizen: object
+  Partner: object
+  Dependents: object
+  Tenure Months: int64
+  Phone Service: object
+  Multiple Lines: object
+  Internet Service: object
+  Online Security: object
+  Online Backup: object
+  Device Protection: object
+  Tech Support: object
+  Streaming TV: object
+  Streaming Movies: object
+  Contract: object
+  Paperless Billing: object
+  Payment Method: object
+  Monthly Charges: float64
+  Total Charges: object
+  Churn Label: object
+  Churn Value: int64
+  Churn Score: int64
+  CLTV: int64
+  Churn Reason: object
+
+
+target_column:
+  - Churn Value
+
+
+numerical_columns:
+  - Count
+  - Zip Code
+  - Latitude
+  - Longitude
+  - Tenure Months
+  - Monthly Charges
+  - Churn Value
+  - Churn Score
+  - CLTV
+
+
+categorical_columns:
+  - CustomerID
+  - Country
+  - State
+  - City
+  - Lat Long
+  - Gender
+  - Senior Citizen
+  - Partner
+  - Dependents
+  - Phone Service
+  - Multiple Lines
+  - Internet Service
+  - Online Security
+  - Online Backup
+  - Device Protection
+  - Tech Support
+  - Streaming TV
+  - Streaming Movies
+  - Contract
+  - Paperless Billing
+  - Payment Method
+  - Total Charges
+  - Churn Label
+  - Churn Reason
+
+
+drop_columns:
+  # Identifiers / low-signal
+  - CustomerID
+  - Count
+  - Country
+  - State
+  - City
+  - Zip Code
+  - Lat Long
+  - Latitude
+  - Longitude
+
+  # Leakage columns
+  - Churn Label
+  - Churn Score
+  - CLTV
+  - Churn Reason
