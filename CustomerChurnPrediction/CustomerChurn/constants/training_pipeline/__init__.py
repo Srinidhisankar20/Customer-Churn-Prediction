@@ -54,5 +54,55 @@ DATA_TRANSFORMATION_IMPUTER_PARAMS: dict = {
     "weights": "uniform",
 }
 DATA_TRANSFORMATION_TRAIN_FILE_PATH: str = "train.npy"
-
 DATA_TRANSFORMATION_TEST_FILE_PATH: str = "test.npy"
+
+# Target
+TARGET_COLUMN = "Churn Value"
+
+# Columns to drop
+DROP_COLUMNS = [
+    'CustomerID',
+    'Count',
+    'Country',
+    'State',
+    'City',
+    'Zip Code',
+    'Lat Long',
+    'Latitude',
+    'Longitude',
+    'Churn Reason',
+    'Churn Label'
+]
+
+# Binary categorical features
+BINARY_FEATURES = [
+    'Gender',
+    'Senior Citizen',
+    'Partner',
+    'Dependents',
+    'Phone Service',
+    'Paperless Billing'
+]
+
+# Multi-category categorical features
+MULTI_CAT_FEATURES = [
+    'Multiple Lines',
+    'Internet Service',
+    'Online Security',
+    'Online Backup',
+    'Device Protection',
+    'Tech Support',
+    'Streaming TV',
+    'Streaming Movies',
+    'Contract',
+    'Payment Method'
+]
+
+# Numerical features
+NUMERICAL_FEATURES = [
+    'Tenure Months',
+    'Monthly Charges',
+    'Total Charges',
+    'CLTV',
+    'Churn Score'
+]
