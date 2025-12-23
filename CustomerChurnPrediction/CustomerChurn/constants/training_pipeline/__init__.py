@@ -71,38 +71,37 @@ DROP_COLUMNS = [
     'Latitude',
     'Longitude',
     'Churn Reason',
-    'Churn Label'
-]
-
-# Binary categorical features
-BINARY_FEATURES = [
-    'Gender',
-    'Senior Citizen',
-    'Partner',
-    'Dependents',
-    'Phone Service',
-    'Paperless Billing'
-]
-
-# Multi-category categorical features
-MULTI_CAT_FEATURES = [
-    'Multiple Lines',
-    'Internet Service',
-    'Online Security',
-    'Online Backup',
-    'Device Protection',
-    'Tech Support',
-    'Streaming TV',
-    'Streaming Movies',
-    'Contract',
-    'Payment Method'
-]
-
-# Numerical features
-NUMERICAL_FEATURES = [
-    'Tenure Months',
-    'Monthly Charges',
-    'Total Charges',
-    'CLTV',
+    'Churn Label',
     'Churn Score'
 ]
+
+# Binary categorical features - do binary encoding just map it to 0 and 1
+BINARY_FEATURES = ['Senior Citizen','Partner','Dependents','Phone Service','Paperless Billing','Gender']
+
+#Ordinal categorical features - Month-to-month < One year < Two year
+ORDINAL_FEATURES = ['Contract']
+
+#Nominal categorical features - One-Hot Encoding
+NOMINAL_FEATURES = ['Internet Service','Payment Method']
+
+# Yes/No & No internet service service features - One hot encoding
+SERVICE_FEATURES = ['Multiple Lines','Online Security','Online Backup','Device Protection','Tech Support','Streaming TV','Streaming Movies']
+
+#Just for imputation purpose
+NUMERICAL_FEATURES = ['Tenure Months','Monthly Charges','Total Charges','CLTV']
+
+USE_FEATURE_SCALING = False #set it True if you want to use feature scaling
+
+
+"""
+Model Trainer ralated constant start with MODE TRAINER VAR NAME
+"""
+
+MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
+MODEL_TRAINER_OVERFITTING_UNDERFITTING_THRESHOLD: float = 0.05
+
+TRAINING_BUCKET_NAME = "awsnetworksecurity"
+PROJECT_NAME = "CustomerChurnPrediction"

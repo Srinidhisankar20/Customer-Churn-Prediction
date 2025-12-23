@@ -13,6 +13,8 @@ CustomerChurn/exception/__init__.py
 CustomerChurn/exception/exception.py
 CustomerChurn/logging/__init__.py
 CustomerChurn/logging/logger.py
+CustomerChurn/pipeline/__init__.py
+CustomerChurn/pipeline/training_pipeline.py
 CustomerChurn/utils/__init__.py
 CustomerChurn/utils/main_utils/__init__.py
 CustomerChurn/utils/main_utils/utils.py
