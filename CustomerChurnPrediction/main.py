@@ -1,10 +1,11 @@
 from CustomerChurn.exception.exception import CustomerChurnException
 from CustomerChurn.logging.logger import logging
-from CustomerChurn.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformationConfig
-from CustomerChurn.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformationArtifact
+from CustomerChurn.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
+from CustomerChurn.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformationArtifact,ModelTrainerArtifact
 from CustomerChurn.components.data_ingestion import DataIngestion
 from CustomerChurn.components.data_validation import DataValidation
 from CustomerChurn.components.data_transformation import DataTransformation
+from CustomerChurn.components.model_trainer import ModelTrainer
 import os,sys
 
 if __name__ == "__main__":
@@ -34,6 +35,13 @@ if __name__ == "__main__":
         data_transformation_artifact = data_transformation.initiate_data_transformation()
         logging.info("Data Transformation completed and artifact:")
         print(data_transformation_artifact)
+
+        #Model Trainer
+        logging.info("Model Training started")
+        model_trainer_config = ModelTrainerConfig(training_pipeline_config=training_pipeline_config)
+        model_trainer = ModelTrainer(model_trainer_config=model_trainer_config,data_transformation_artifact=data_transformation_artifact)
+        model_trainer_artifact = model_trainer.initiate_model_trainer()
+        logging.info("Model Training completed")
 
     except Exception as e:
         raise CustomerChurnException(e, sys)

@@ -77,15 +77,12 @@ DROP_COLUMNS = [
 
 # Binary categorical features - do binary encoding just map it to 0 and 1
 BINARY_FEATURES = ['Senior Citizen','Partner','Dependents','Phone Service','Paperless Billing','Gender']
-
+'''
 #Ordinal categorical features - Month-to-month < One year < Two year
 ORDINAL_FEATURES = ['Contract']
-
+'''
 #Nominal categorical features - One-Hot Encoding
-NOMINAL_FEATURES = ['Internet Service','Payment Method']
-
-# Yes/No & No internet service service features - One hot encoding
-SERVICE_FEATURES = ['Multiple Lines','Online Security','Online Backup','Device Protection','Tech Support','Streaming TV','Streaming Movies']
+MULTI_CATEGORICAL_FEATURES = ['Multiple Lines','Online Security','Online Backup','Device Protection','Tech Support','Streaming TV','Streaming Movies','Contract','Internet Service','Payment Method']
 
 #Just for imputation purpose
 NUMERICAL_FEATURES = ['Tenure Months','Monthly Charges','Total Charges','CLTV']
@@ -102,6 +99,9 @@ MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
 MODEL_TRAINER_TRAINED_MODEL_NAME: str = "model.pkl"
 MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
 MODEL_TRAINER_OVERFITTING_UNDERFITTING_THRESHOLD: float = 0.05
+MODEL_TRAINER_EXPECTED_RECALL = 0.65
+MODEL_TRAINER_EXPECTED_F1 = 0.60
 
-TRAINING_BUCKET_NAME = "awsnetworksecurity"
+
+TRAINING_BUCKET_NAME = "awschurnprediction"
 PROJECT_NAME = "CustomerChurnPrediction"

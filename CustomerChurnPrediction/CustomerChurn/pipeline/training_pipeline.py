@@ -5,8 +5,9 @@ from CustomerChurn.exception.exception import CustomerChurnException
 from CustomerChurn.components.data_ingestion import DataIngestion
 from CustomerChurn.components.data_validation import DataValidation
 from CustomerChurn.components.data_transformation import DataTransformation
-from CustomerChurn.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformationConfig
-from CustomerChurn.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformationArtifact
+from CustomerChurn.components.model_trainer import ModelTrainer
+from CustomerChurn.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
+from CustomerChurn.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformationArtifact,ModelTrainerArtifact
 #from CustomerChurn.cloud.s3_syncer import S3Sync
 
 class TrainingPipeline:
@@ -50,6 +51,17 @@ class TrainingPipeline:
             return data_transformation_artifact
         except Exception as e:
             raise CustomerChurnException(e,sys)
+        
+    def start_model_trainer(self,data_transformation_artifact:DataTransformationArtifact):
+        try:
+            model_trainer_config = ModelTrainerConfig(training_pipeline_config=self.training_pipeline_config)
+            model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,model_trainer_config=model_trainer_config)
+            logging.info("Model Training Initiated")
+            model_trainer_artifact = model_trainer.initiate_model_trainer()
+            logging.info("Model Training Completed.")
+            return model_trainer_artifact
+        except Exception as e:
+            raise CustomerChurnException(e,sys) from e
     
 
     def run_pipeline(self):
@@ -57,5 +69,6 @@ class TrainingPipeline:
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
             data_transformation_artifact = self.start_data_transformation(data_validation_artifact=data_validation_artifact)
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
         except Exception as e:
             raise CustomerChurnException(e, sys)
