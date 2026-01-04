@@ -3,7 +3,7 @@ from CustomerChurn.exception.exception import CustomerChurnException
 from sklearn.metrics import f1_score,precision_score,recall_score,accuracy_score
 import os,sys
 
-def get_classification_score(y_true,y_pred,y_prob)->ClassificationMetricArtifact:
+def get_classification_score(y_true,y_pred)->ClassificationMetricArtifact:
     try:
         f1score=f1_score(y_true,y_pred)
         precisionscore=precision_score(y_true,y_pred)

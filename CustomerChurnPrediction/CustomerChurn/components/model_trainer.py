@@ -34,8 +34,8 @@ class ModelTrainer:
             mlflow.set_tag("model",model.__class__.__name__)
             mlflow.log_params(model.get_params())
             mlflow.log_metric("f1_score",classification_metric.f1_score)
-            mlflow.log_metric("precision",classification_metric.precision)
-            mlflow.log_metric("recall",classification_metric.recall_scrore)
+            mlflow.log_metric("precision",classification_metric.precision_score)
+            mlflow.log_metric("recall",classification_metric.recall_score)
             mlflow.log_metric("accuracy",classification_metric.accuracy_score)
             if hasattr(model, "oob_score_"):
                 mlflow.log_metric("oob_score", model.oob_score_)
