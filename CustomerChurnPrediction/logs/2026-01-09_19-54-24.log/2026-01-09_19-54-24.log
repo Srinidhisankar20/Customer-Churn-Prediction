@@ -1,0 +1,52 @@
+[2026-01-09 19:54:33,720] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-01-09 19:54:33,745] 107 dagshub - INFO - Accessing as Srinidhi
+[2026-01-09 19:54:34,646] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/srinidhisankar21/Customer-Churn-Prediction "HTTP/1.1 200 OK"
+[2026-01-09 19:54:35,400] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-01-09 19:54:35,412] 107 dagshub - INFO - Initialized MLflow to track repo "srinidhisankar21/Customer-Churn-Prediction"
+[2026-01-09 19:54:35,412] 107 dagshub - INFO - Repository srinidhisankar21/Customer-Churn-Prediction initialized!
+[2026-01-09 19:54:35,416] 13 root - INFO - Data Ingestion Started
+[2026-01-09 19:54:53,874] 46 root - INFO - MongoDB connection closed
+[2026-01-09 19:54:54,200] 68 root - INFO - Performed train test split on the dataframe
+[2026-01-09 19:54:54,200] 73 root - INFO - Exporting train and test file path.
+[2026-01-09 19:54:54,484] 20 root - INFO - Data Ingestion completed and artifact:
+[2026-01-09 19:54:54,484] 24 root - INFO - Data Validation Started
+[2026-01-09 19:54:54,699] 35 root - INFO - Required number of columns: 33
+[2026-01-09 19:54:54,699] 36 root - INFO - Dataframe has columns: 33
+[2026-01-09 19:54:54,733] 105 root - WARNING - Missing value report: {'Churn Reason': 0.7346467873624423}
+[2026-01-09 19:54:54,761] 115 root - WARNING - Duplicate rows found: 4514
+[2026-01-09 19:54:54,761] 35 root - INFO - Required number of columns: 33
+[2026-01-09 19:54:54,761] 36 root - INFO - Dataframe has columns: 33
+[2026-01-09 19:54:54,770] 105 root - WARNING - Missing value report: {'Churn Reason': 0.7345635202271115}
+[2026-01-09 19:54:54,777] 115 root - WARNING - Duplicate rows found: 289
+[2026-01-09 19:54:54,820] 31 root - INFO - YAML file successfully written at: Artifacts\01_09_2026_19_54_25\data_validation\drift_report\report.yaml
+[2026-01-09 19:54:55,004] 28 root - INFO - Data Validation completed and artifact:
+[2026-01-09 19:54:55,004] 32 root - INFO - Data Transformation Started
+[2026-01-09 19:54:55,004] 73 root - INFO - Starting data transformation
+[2026-01-09 19:54:55,237] 40 root - INFO - Creating preprocessing object
+[2026-01-09 19:54:55,484] 127 root - INFO - Class distribution BEFORE SMOTE:
+Churn Value
+0    8278
+1    2990
+Name: count, dtype: int64
+[2026-01-09 19:54:58,006] 133 root - INFO - Class distribution AFTER SMOTE:
+Churn Value
+0    8278
+1    8278
+Name: count, dtype: int64
+[2026-01-09 19:54:58,018] 55 root - INFO - Entered the save_object method to save the preprocessed object
+[2026-01-09 19:54:58,022] 60 root - INFO - saved the preprocessed object as pickle file
+[2026-01-09 19:54:58,022] 55 root - INFO - Entered the save_object method to save the preprocessed object
+[2026-01-09 19:54:58,022] 60 root - INFO - saved the preprocessed object as pickle file
+[2026-01-09 19:54:58,022] 36 root - INFO - Data Transformation completed and artifact:
+[2026-01-09 19:54:58,022] 40 root - INFO - Model Training started
+[2026-01-09 19:54:58,022] 33 root - INFO - >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Model Trainer <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[2026-01-09 19:54:58,030] 152 root - INFO - Loading transformed training dataset
+[2026-01-09 19:54:58,086] 160 root - INFO - Splitting training and testing input and target feature
+[2026-01-09 19:54:58,087] 164 root - INFO - Initiating model training
+[2026-01-09 20:07:10,891] 62 root - INFO - Model tracked in MLflow
+[2026-01-09 20:07:11,739] 55 root - INFO - Entered the save_object method to save the preprocessed object
+[2026-01-09 20:07:11,871] 60 root - INFO - saved the preprocessed object as pickle file
+[2026-01-09 20:07:11,872] 55 root - INFO - Entered the save_object method to save the preprocessed object
+[2026-01-09 20:07:11,943] 60 root - INFO - saved the preprocessed object as pickle file
+[2026-01-09 20:07:11,943] 144 root - INFO - Model Trainer Artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\01_09_2026_19_54_25\\model_trainer\\trained_model\\model.pkl', test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9110512129380054, precision_score=0.9184782608695652, recall_score=0.9037433155080213, accuracy_score=0.9531582682753726, y_true=array([1., 0., 1., ..., 0., 0., 1.], shape=(2818,)), y_pred=array([1., 0., 1., ..., 0., 0., 1.], shape=(2818,))), best_model_name='Random Forest', best_model_score=0.9110512129380054)
+[2026-01-09 20:07:11,951] 44 root - INFO - Model Training completed

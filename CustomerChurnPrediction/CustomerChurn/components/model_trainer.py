@@ -11,13 +11,20 @@ from CustomerChurn.utils.main_utils.utils import save_object,load_object,load_nu
 
 #import the models
 from sklearn.ensemble import RandomForestClassifier
-
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
 #model monitoring imports
 from dotenv import load_dotenv
 load_dotenv()
 from urllib.parse import urlparse
 import mlflow
+
+#remote repository setup
 import dagshub
+dagshub.init(repo_owner='srinidhisankar21', repo_name='Customer-Churn-Prediction', mlflow=True)
+os.environ["MLFLOW_TRACKING_URI"] = "https://dagshub.com/srinidhisankar21/Customer-Churn-Prediction.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"] = "srinidhisankar21"
+os.environ["MLFLOW_TRACKING_PASSWORD"] = "d2d4398107445e4d305af6da959ee08026f0897d"
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,
@@ -58,13 +65,40 @@ class ModelTrainer:
         try:
             #defining models
             models = {
-                "RandomForest": RandomForestClassifier(verbose=1,oob_score=True,random_state=42)
+                "Decision Tree": DecisionTreeClassifier(random_state=42),
+                "Random Forest": RandomForestClassifier(verbose=1,oob_score=True,random_state=42,n_jobs=-1),
+                "Logistic Regression": LogisticRegression(random_state=42),
+
+            }
+            params = {
+
+            "Decision Tree":{
+                "criterion": ["gini", "entropy"],
+                "max_depth": [None, 10, 20, 30],
+                "min_samples_split": [2, 5, 10],
+                "min_samples_leaf": [1, 2, 5],
+            },
+                "Random Forest":{
+                "n_estimators": [100, 200],
+                "max_depth": [None, 10, 20],
+                "min_samples_split": [2, 5, 10],
+                "min_samples_leaf": [1, 2, 5],
+                "max_features": ["sqrt", "log2"],
+                "class_weight": [None, "balanced"]
+            },
+            "Logistic Regression":{
+                "penalty": ["l1", "l2"],
+                "C": [0.01, 0.1, 1, 10],
+                "solver": ["saga"],
+                "class_weight": ["balanced"],
+                "max_iter": [1000]
+            }
             }
 
             #get model report
             model_report:dict=evaluate_models(X_train=X_train,y_train=y_train,
                                               X_test=X_test,y_test=y_test,
-                                              models=models)
+                                              models=models,params = params)
 
             #get best model name from report
             best_model_name = max(model_report, key=lambda x: model_report[x]["f1_score"])
@@ -109,6 +143,7 @@ class ModelTrainer:
             )
             logging.info(f"Model Trainer Artifact: {model_trainer_artifact}")
             return model_trainer_artifact
+
         except Exception as e:
             raise CustomerChurnException(e,sys) from e
         

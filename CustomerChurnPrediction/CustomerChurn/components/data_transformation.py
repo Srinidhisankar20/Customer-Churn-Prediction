@@ -8,6 +8,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder,LabelEncoder
 from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
 from CustomerChurn.constants.training_pipeline import MULTI_CATEGORICAL_FEATURES,DROP_COLUMNS,BINARY_FEATURES,NUMERICAL_FEATURES
 from CustomerChurn.entity.artifact_entity import DataValidationArtifact,DataTransformationArtifact
 from CustomerChurn.entity.config_entity import DataTransformationConfig
@@ -49,7 +50,8 @@ class DataTransformation:
             ])
             # Numerical pipeline
             num_pipeline = Pipeline(steps=[
-                ("imputer", SimpleImputer(strategy="median"))
+                ("imputer", SimpleImputer(strategy="median")),
+                ("scaler", StandardScaler())
             ])
 
             preprocessor = ColumnTransformer(

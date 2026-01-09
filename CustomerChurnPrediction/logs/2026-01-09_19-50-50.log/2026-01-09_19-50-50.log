@@ -1,0 +1,48 @@
+[2026-01-09 19:51:03,905] 74 dagshub.auth.tokens - INFO - Removed expired tokens from the token cache
+[2026-01-09 19:51:19,941] 1025 httpx - INFO - HTTP Request: POST https://dagshub.com/login/oauth/middleman "HTTP/1.1 200 OK"
+[2026-01-09 19:51:20,822] 1025 httpx - INFO - HTTP Request: POST https://dagshub.com/login/oauth/access_token "HTTP/1.1 200 OK"
+[2026-01-09 19:51:21,713] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-01-09 19:51:21,721] 107 dagshub - INFO - Accessing as Srinidhi
+[2026-01-09 19:51:22,558] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/repos/srinidhisankar21/Customer-Churn-Prediction "HTTP/1.1 200 OK"
+[2026-01-09 19:51:23,327] 1025 httpx - INFO - HTTP Request: GET https://dagshub.com/api/v1/user "HTTP/1.1 200 OK"
+[2026-01-09 19:51:23,329] 107 dagshub - INFO - Initialized MLflow to track repo "srinidhisankar21/Customer-Churn-Prediction"
+[2026-01-09 19:51:23,330] 107 dagshub - INFO - Repository srinidhisankar21/Customer-Churn-Prediction initialized!
+[2026-01-09 19:51:23,330] 13 root - INFO - Data Ingestion Started
+[2026-01-09 19:51:41,203] 46 root - INFO - MongoDB connection closed
+[2026-01-09 19:51:41,376] 68 root - INFO - Performed train test split on the dataframe
+[2026-01-09 19:51:41,376] 73 root - INFO - Exporting train and test file path.
+[2026-01-09 19:51:41,567] 20 root - INFO - Data Ingestion completed and artifact:
+[2026-01-09 19:51:41,567] 24 root - INFO - Data Validation Started
+[2026-01-09 19:51:41,695] 35 root - INFO - Required number of columns: 33
+[2026-01-09 19:51:41,695] 36 root - INFO - Dataframe has columns: 33
+[2026-01-09 19:51:41,713] 105 root - WARNING - Missing value report: {'Churn Reason': 0.7346467873624423}
+[2026-01-09 19:51:41,724] 115 root - WARNING - Duplicate rows found: 4514
+[2026-01-09 19:51:41,724] 35 root - INFO - Required number of columns: 33
+[2026-01-09 19:51:41,724] 36 root - INFO - Dataframe has columns: 33
+[2026-01-09 19:51:41,741] 105 root - WARNING - Missing value report: {'Churn Reason': 0.7345635202271115}
+[2026-01-09 19:51:41,741] 115 root - WARNING - Duplicate rows found: 289
+[2026-01-09 19:51:41,764] 31 root - INFO - YAML file successfully written at: Artifacts\01_09_2026_19_50_51\data_validation\drift_report\report.yaml
+[2026-01-09 19:51:41,895] 28 root - INFO - Data Validation completed and artifact:
+[2026-01-09 19:51:41,895] 32 root - INFO - Data Transformation Started
+[2026-01-09 19:51:41,895] 73 root - INFO - Starting data transformation
+[2026-01-09 19:51:42,029] 40 root - INFO - Creating preprocessing object
+[2026-01-09 19:51:42,162] 127 root - INFO - Class distribution BEFORE SMOTE:
+Churn Value
+0    8278
+1    2990
+Name: count, dtype: int64
+[2026-01-09 19:51:44,671] 133 root - INFO - Class distribution AFTER SMOTE:
+Churn Value
+0    8278
+1    8278
+Name: count, dtype: int64
+[2026-01-09 19:51:44,686] 55 root - INFO - Entered the save_object method to save the preprocessed object
+[2026-01-09 19:51:44,689] 60 root - INFO - saved the preprocessed object as pickle file
+[2026-01-09 19:51:44,689] 55 root - INFO - Entered the save_object method to save the preprocessed object
+[2026-01-09 19:51:44,691] 60 root - INFO - saved the preprocessed object as pickle file
+[2026-01-09 19:51:44,694] 36 root - INFO - Data Transformation completed and artifact:
+[2026-01-09 19:51:44,695] 40 root - INFO - Model Training started
+[2026-01-09 19:51:44,696] 33 root - INFO - >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Model Trainer <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+[2026-01-09 19:51:44,696] 152 root - INFO - Loading transformed training dataset
+[2026-01-09 19:51:44,725] 160 root - INFO - Splitting training and testing input and target feature
+[2026-01-09 19:51:44,725] 164 root - INFO - Initiating model training
