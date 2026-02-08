@@ -1,22 +1,19 @@
-FROM python:3.10-slim-buster
+FROM python:3.10-slim-bookworm
 
+
+# Set working directory
 WORKDIR /app
 
+# Copy project files
 COPY . /app
 
-# Install system dependencies
+# Fix apt issue and clean up to reduce image size
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    curl \
-    ca-certificates && \
+    apt-get install -y --no-install-recommends awscli && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install AWS CLI via pip
-RUN pip install --no-cache-dir awscli
-
+# Run the application
 CMD ["python3", "app.py"]
-
-
