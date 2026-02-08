@@ -160,6 +160,8 @@ class DataValidation:
 
                 if not self.validate_number_of_columns(df):
                     raise Exception(f"{name} dataframe column count mismatch")
+                else:
+                    print(f"{name} Dataframe has required number of columns")
 
                 if not self.validate_column_names(df):
                     raise Exception(f"{name} dataframe column name mismatch")

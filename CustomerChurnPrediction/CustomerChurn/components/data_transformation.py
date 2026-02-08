@@ -118,8 +118,8 @@ class DataTransformation:
             #print("Columns in input_feature_train_df:", list(input_feature_train_df.columns))
             preprocessor_object = preprocessor.fit(input_feature_train_df)
 
-            transformed_input_train_feature=preprocessor_object.transform(input_feature_train_df)
-            transformed_input_test_feature =preprocessor_object.transform(input_feature_test_df)
+            transformed_input_train_feature=preprocessor_object.transform(input_feature_train_df) #a-y
+            transformed_input_test_feature =preprocessor_object.transform(input_feature_test_df) #a- y
 
             #-------handling imbalanced dataset using SMOTE technique------
             print("\nClass distribution BEFORE SMOTE:")

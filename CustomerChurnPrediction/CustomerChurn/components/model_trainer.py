@@ -13,6 +13,9 @@ from CustomerChurn.utils.main_utils.utils import save_object,load_object,load_nu
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import GradientBoostingClassifier
+from xgboost import XGBClassifier
+
 #model monitoring imports
 from dotenv import load_dotenv
 load_dotenv()
@@ -67,6 +70,8 @@ class ModelTrainer:
             models = {
                 "Decision Tree": DecisionTreeClassifier(random_state=42),
                 "Random Forest": RandomForestClassifier(verbose=1,oob_score=True,random_state=42,n_jobs=-1),
+                "Gradient Boosting": GradientBoostingClassifier(random_state=42),
+                "XGBoost": XGBClassifier(objective="binary:logistic",eval_metric='logloss',random_state=42,n_jobs=-1),
                 "Logistic Regression": LogisticRegression(random_state=42),
 
             }
@@ -86,6 +91,20 @@ class ModelTrainer:
                 "max_features": ["sqrt", "log2"],
                 "class_weight": [None, "balanced"]
             },
+                "Gradient Boosting": {
+                    "n_estimators": [100, 200],
+                    "learning_rate": [0.05, 0.1],
+                    "max_depth": [3, 5],
+                    "subsample": [0.8, 1.0]
+             },
+             "XGBoost": {
+                "n_estimators": [200, 300],
+                "max_depth": [3, 5, 7],
+                "learning_rate": [0.01, 0.1],
+                "subsample": [0.8, 1.0],
+                "colsample_bytree": [0.8, 1.0]
+            },
+
             "Logistic Regression":{
                 "penalty": ["l1", "l2"],
                 "C": [0.01, 0.1, 1, 10],
@@ -93,6 +112,7 @@ class ModelTrainer:
                 "class_weight": ["balanced"],
                 "max_iter": [1000]
             }
+
             }
 
             #get model report
@@ -113,11 +133,15 @@ class ModelTrainer:
         
             best_model = models[best_model_name]
             best_model.fit(X_train, y_train)
-            y_test_pred = best_model.predict(X_test)
 
+            #train accuracy and test accuracy ##-----------tracking using mlflow--------------------
+            y_train_pred = best_model.predict(X_train)
+            classification_train_metrics = get_classification_score(y_true=y_train, y_pred=y_train_pred)
+            self.track_mlflow(best_model,classification_train_metrics)
+
+
+            y_test_pred = best_model.predict(X_test)
             classification_test_metrics = get_classification_score(y_true=y_test, y_pred=y_test_pred)
-            
-            ##-----------tracking using mlflow--------------------
             self.track_mlflow(best_model,classification_test_metrics)
 
             preprocessor = load_object(file_path=self.data_transformation_artifact.transformed_object_file_path)

@@ -1,9 +1,12 @@
 setup.py
 CustomerChurn/__init__.py
+CustomerChurn/cloud/__init__.py
+CustomerChurn/cloud/s3_syncer.py
 CustomerChurn/components/__init__.py
 CustomerChurn/components/data_ingestion.py
 CustomerChurn/components/data_transformation.py
 CustomerChurn/components/data_validation.py
+CustomerChurn/components/model_trainer.py
 CustomerChurn/constants/__init__.py
 CustomerChurn/constants/training_pipeline/__init__.py
 CustomerChurn/entity/__init__.py
@@ -14,6 +17,7 @@ CustomerChurn/exception/exception.py
 CustomerChurn/logging/__init__.py
 CustomerChurn/logging/logger.py
 CustomerChurn/pipeline/__init__.py
+CustomerChurn/pipeline/batch_prediction.py
 CustomerChurn/pipeline/training_pipeline.py
 CustomerChurn/utils/__init__.py
 CustomerChurn/utils/main_utils/__init__.py

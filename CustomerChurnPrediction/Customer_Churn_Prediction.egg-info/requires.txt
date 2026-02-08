@@ -12,3 +12,4 @@ dagshub
 fastapi
 uvicorn
 imblearn
+xgboost
