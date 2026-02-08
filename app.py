@@ -1,3 +1,5 @@
+#this is app.py - fast api application for training and prediction of customer churn model
+
 import sys
 import os
 import pymongo
