@@ -20,5 +20,3 @@ RUN pip install --no-cache-dir awscli
 CMD ["python3", "app.py"]
 
 
-
-git 
