@@ -23,8 +23,8 @@ from urllib.parse import urlparse
 import mlflow
 
 #remote repository setup
-import dagshub
-dagshub.init(repo_owner='srinidhisankar21', repo_name='Customer-Churn-Prediction', mlflow=True)
+#import dagshub
+#dagshub.init(repo_owner='srinidhisankar21', repo_name='Customer-Churn-Prediction', mlflow=True)
 os.environ["MLFLOW_TRACKING_URI"] = "https://dagshub.com/srinidhisankar21/Customer-Churn-Prediction.mlflow"
 os.environ["MLFLOW_TRACKING_USERNAME"] = "srinidhisankar21"
 os.environ["MLFLOW_TRACKING_PASSWORD"] = "d2d4398107445e4d305af6da959ee08026f0897d"
